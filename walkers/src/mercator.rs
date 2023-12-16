@@ -34,7 +34,7 @@ impl Position {
     }
 
     /// Project geographical position into a 2D plane using Mercator.
-    pub(crate) fn project(&self, zoom: u8) -> Pixels {
+    pub fn project(&self, zoom: u8) -> Pixels {
         let (x, y) = mercator_normalized(*self);
 
         // Map that into a big bitmap made out of web tiles.
@@ -161,6 +161,25 @@ impl TileId {
 
 /// Transforms screen pixels into a geographical position.
 pub fn screen_to_position(pixels: Pixels, zoom: u8) -> Position {
+    let number_of_pixels = 2u32.pow(zoom as u32) * TILE_SIZE;
+    let number_of_pixels: f64 = number_of_pixels.into();
+
+    let lon = pixels.x();
+    let lon = lon / number_of_pixels;
+    let lon = (lon * 2. - 1.) * PI;
+    let lon = lon.to_degrees();
+
+    let lat = pixels.y();
+    let lat = lat / number_of_pixels;
+    let lat = (-lat * 2. + 1.) * PI;
+    let lat = lat.sinh().atan().to_degrees();
+
+    Position::from_lon_lat(lon, lat)
+}
+
+
+/// Transforms screen pixels into a geographical position.
+pub fn position_to_screen(pixels: Pixels, zoom: u8) -> Position {
     let number_of_pixels = 2u32.pow(zoom as u32) * TILE_SIZE;
     let number_of_pixels: f64 = number_of_pixels.into();
 

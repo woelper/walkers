@@ -334,7 +334,7 @@ impl Center {
 #[derive(Debug, Default, Clone)]
 pub struct MapMemory {
     center_mode: Center,
-    zoom: Zoom,
+    pub zoom: Zoom,
 }
 
 impl MapMemory {

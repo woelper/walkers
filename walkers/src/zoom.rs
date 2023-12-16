@@ -3,7 +3,7 @@
 pub struct InvalidZoom;
 
 #[derive(Debug, Clone, Copy)]
-pub(crate) struct Zoom(f32);
+pub struct Zoom(f32);
 
 impl TryFrom<f32> for Zoom {
     type Error = InvalidZoom;
