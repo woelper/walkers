@@ -46,7 +46,7 @@ impl Position {
     }
 
     /// Tile this position is on.
-    pub(crate) fn tile_id(&self, mut zoom: u8, tile_size: u32) -> TileId {
+    pub fn tile_id(&self, mut zoom: u8, tile_size: u32) -> TileId {
         let (x, y) = mercator_normalized(*self);
 
         // Some providers provide larger tiles, effectively bundling e.g. 4 256px tiles in one
