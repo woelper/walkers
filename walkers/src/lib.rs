@@ -5,7 +5,7 @@ mod download;
 pub mod extras;
 mod io;
 mod map;
-mod mercator;
+pub mod mercator;
 pub mod providers;
 mod tiles;
 mod zoom;
